@@ -23,3 +23,4 @@ def decodificar_dados(dados: str, codificacao: str) -> bytes:
         return bytes.fromhex(dados)
 
     raise ValueError("Codificação inválida. Use 'Base64' ou 'Hex'.")
+
