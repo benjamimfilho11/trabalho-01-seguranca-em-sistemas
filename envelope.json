@@ -1,0 +1,17 @@
+{
+    "parametros": {
+        "algoritmo_simetrico": "AES-256-CBC",
+        "padding_simetrico": "PKCS7",
+        "algoritmo_chave": "RSA-OAEP",
+        "hash_oaep": "SHA-256",
+        "algoritmo_assinatura": "RSA",
+        "hash_assinatura": "SHA-256",
+        "codificacao": "Base64"
+    },
+    "envelope": {
+        "iv": "1YFYVrcLbEG6P05UJuq/fw==",
+        "chave_sessao": "JLYFCnrZTSUJhRxyMIbpm/9ZHCa80nJNdWMDUeVLmXTos7rz47psiY/3VgPe+pn8oYbbyFIzJcMPrFWD8pEtraZp1pM6kzz8+2CnmtSCfR0A1cQDVUgodLQ6KLmoOsTcHiiF30BfyDkLochR1wA1Aj7lu1UhY92ikskL88OhG04Dgd0FRzoee9XKMrvBm2fLa5kJ4IvyIIDHzB1lyVO6xtmE3GVGb8xBbptWIc3hM+IvZTRF+E+Xx9Olk+zXeHxgpU8ojagcnDJIRjQDk/qpSRF86qdQQDQKM7j80F6zbNY1O/WdcOiH7MggPh/amQg1+1/ugEHB6dsTlmA+P8IX9Q==",
+        "mensagem_cifrada": "BLROHo+078D48APHt3NWfo6EuK05Q5iPZZnPg2+GzZCedzbw42ji3NSWsd4npXNC8Ax2aDuk+quvoHdbsH8pNA==",
+        "assinatura": "Tf54Pop4fm4XijebXQ/scEA4ybCo2t7FRwTjShSfj/AAr2+8TQ7w5vcRl1uFvYkNG1LCFYI7S1R08nPsAb6XW6jtCWj4vT31XZuoMf+v0keSdF7eccGT0OIeL2l6r8b2Vf119pbahBRz8ty1aEjAgrcvJ3WmmwQh8mtWpTW4QEeHN7+jNhdqJMlbleZcOrhcRruq4rOEY/OfT2o8O+u50B7QZkFC/7kSnSD75UbO5ZvCi55uNaOjkholzfPkz+C1Br9caJl4v3kyLHUVu41rT7DJ/lX+PzgAIYsOxHrhmswlEQW9lNuda6fSOhMI0YoYuqV1PUkG8XvgZkqzfluWgg=="
+    }
+}
