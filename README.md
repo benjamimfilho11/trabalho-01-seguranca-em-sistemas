@@ -1,37 +1,43 @@
-# trabalho-01-seguranca-em-sistemas
-ENVELOPE DIGITAL ASSINADO
-Trabalho 01 – Segurança em Sistemas Computacionais
+# Envelope Digital Assinado
 
-1. DESCRIÇÃO DO PROJETO
+**Trabalho 01 – Segurança em Sistemas Computacionais**
 
-Este projeto implementa um mecanismo de Envelope Digital Assinado utilizando criptografia híbrida.
+Universidade Federal do Piauí (UFPI)
+
+## 1. Descrição do projeto
+
+Este projeto implementa um mecanismo de Envelope Digital Assinado utilizando criptografia híbrida e o modelo Encrypt-then-Sign (cifrar e depois assinar).
 
 O sistema permite:
 
-- Cifrar uma mensagem de texto com AES-256-CBC;
-- Gerar uma chave de sessão AES de 256 bits;
-- Gerar um vetor de inicialização (IV) de 128 bits;
-- Aplicar padding PKCS7;
-- Proteger a chave de sessão com RSA-OAEP;
-- Assinar a mensagem cifrada com RSA usando PKCS#1 v1.5;
+- Cifrar mensagens de texto utilizando AES-256-CBC;
+- Gerar uma chave de sessão AES aleatória de 256 bits;
+- Gerar um vetor de inicialização (IV) aleatório de 128 bits;
+- Aplicar e remover padding PKCS7;
+- Proteger a chave de sessão utilizando RSA-OAEP;
+- Assinar o criptograma codificado com RSA PKCS#1 v1.5;
 - Utilizar SHA-256 ou SHA-512;
 - Utilizar Base64 ou Hex como codificação textual;
 - Gerar um envelope único em formato JSON;
-- Verificar a assinatura antes da decifragem;
-- Recuperar a chave AES com a chave privada do destinatário;
-- Decifrar a mensagem original.
+- Validar a estrutura e os parâmetros do envelope;
+- Verificar a assinatura digital antes da decifragem;
+- Recuperar a chave AES utilizando a chave privada do destinatário;
+- Decifrar e recuperar a mensagem original;
+- Identificar erros de arquivos, parâmetros e integridade.
 
-A implementação foi desenvolvida em Python utilizando a biblioteca cryptography.
+A implementação foi desenvolvida em Python, utilizando a biblioteca `cryptography`.
 
-2. ESTRUTURA DO PROJETO
+## 2. Estrutura do projeto
 
+```text
 trabalho-01-seguranca-em-sistemas/
 │
 ├── main.py
 ├── gerar_chaves.py
 ├── mensagem.txt
 ├── requirements.txt
-├── README.txt
+├── README.md
+├── .gitignore
 │
 ├── crypto/
 │   ├── __init__.py
@@ -55,82 +61,108 @@ trabalho-01-seguranca-em-sistemas/
 └── testes/
     ├── test_aes.py
     ├── test_assinatura.py
-    ├── test_encoding.py
+    ├── test_enconding.py
     ├── test_integracao.py
     └── test_rsa.py
+```
 
-3. REQUISITOS
+Os arquivos `envelope.json` e `mensagem_decifrada.txt` podem ser gerados durante a execução.
 
-- Python 3.12 ou compatível;
-- Biblioteca cryptography;
-- Biblioteca pytest.
+As chaves PEM incluídas são destinadas exclusivamente à demonstração e aos testes.
 
-As dependências podem ser instaladas através do arquivo requirements.txt.
+## 3. Requisitos
 
-4. CRIAÇÃO DO AMBIENTE VIRTUAL
+- Python 3.12 ou versão compatível;
+- Biblioteca `cryptography`;
+- Biblioteca `pytest` para execução dos testes.
+
+As dependências são instaladas por meio do arquivo `requirements.txt`.
+
+## 4. Criação do ambiente virtual
 
 Na raiz do projeto, execute:
 
+```powershell
 python -m venv .venv
+```
 
-No Windows PowerShell:
+No Windows PowerShell, ative o ambiente:
 
-.venv\Scripts\Activate.ps1
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
 
-No Prompt de Comando:
+No Prompt de Comando (CMD):
 
-.venv\Scripts\activate
+```cmd
+.venv\Scripts\activate.bat
+```
 
-5. INSTALAÇÃO DAS DEPENDÊNCIAS
+## 5. Instalação das dependências
 
 Com o ambiente virtual ativado, execute:
 
+```powershell
 python -m pip install -r requirements.txt
+```
 
-6. GERAÇÃO DAS CHAVES RSA
+## 6. Geração das chaves RSA
 
-Caso seja necessário gerar novos pares de chaves, execute:
+Para gerar novos pares de chaves, execute:
 
+```powershell
 python gerar_chaves.py
+```
 
-Serão gerados dois pares de chaves:
+Serão gerados dois pares de chaves RSA:
 
-- Remetente:
-  - remetente_privada.pem
-  - remetente_publica.pem
+**Remetente:**
+- `remetente_privada.pem`
+- `remetente_publica.pem`
 
-- Destinatário:
-  - destinatario_privada.pem
-  - destinatario_publica.pem
+**Destinatário:**
+- `destinatario_privada.pem`
+- `destinatario_publica.pem`
 
-As chaves serão armazenadas na pasta chaves/.
+As chaves serão armazenadas na pasta `chaves/`.
 
-7. EXECUÇÃO DO PROGRAMA
+A chave privada do remetente é utilizada para assinar o criptograma, enquanto a chave pública correspondente é utilizada para verificar a assinatura.
 
-Para iniciar o programa:
+A chave pública do destinatário protege a chave de sessão AES, que poderá ser recuperada apenas com a chave privada correspondente.
 
+## 7. Execução do programa
+
+Para iniciar a aplicação:
+
+```powershell
 python main.py
+```
 
-O menu principal apresenta as opções:
+O menu principal apresenta:
 
+```text
 1 - Criar envelope
 2 - Abrir envelope
 0 - Sair
+```
 
-8. CRIAÇÃO DO ENVELOPE
+O usuário pode informar os caminhos dos arquivos de entrada e saída.
+
+## 8. Criação do envelope
 
 Ao selecionar a opção 1, o programa solicitará:
 
 - Arquivo da mensagem em claro;
 - Chave pública do destinatário;
 - Chave privada do remetente;
-- Nome do arquivo de saída;
+- Nome do arquivo JSON de saída;
 - Codificação: Base64 ou Hex;
 - Hash do RSA-OAEP: SHA-256 ou SHA-512;
 - Hash da assinatura: SHA-256 ou SHA-512.
 
-Exemplo:
+**Exemplo de preenchimento:**
 
+```text
 Arquivo da mensagem:
 mensagem.txt
 
@@ -151,26 +183,30 @@ SHA-256
 
 Hash da assinatura:
 SHA-256
+```
 
-O arquivo envelope.json será gerado contendo os parâmetros criptográficos e os seguintes dados:
+O arquivo `envelope.json` conterá os parâmetros criptográficos e os seguintes dados:
 
 - IV;
-- chave de sessão cifrada;
-- mensagem cifrada;
-- assinatura digital.
+- Chave de sessão cifrada;
+- Mensagem cifrada;
+- Assinatura digital.
 
-9. ABERTURA DO ENVELOPE
+A estrutura segue o padrão estabelecido no enunciado, com os objetos `parametros` e `envelope`.
+
+## 9. Abertura do envelope
 
 Ao selecionar a opção 2, o programa solicitará:
 
-- Arquivo envelope JSON;
+- Arquivo JSON do envelope;
 - Chave privada do destinatário;
 - Chave pública do remetente;
 - Nome do arquivo de saída.
 
-Exemplo:
+**Exemplo:**
 
-Arquivo:
+```text
+Arquivo do envelope:
 envelope.json
 
 Chave privada do destinatário:
@@ -181,93 +217,132 @@ chaves/remetente_publica.pem
 
 Arquivo de saída:
 mensagem_decifrada.txt
+```
 
-Antes da decifragem, o programa verifica a assinatura digital.
+Durante a abertura:
 
-Caso a assinatura seja inválida, o processo é interrompido.
+1. O JSON é carregado e sua estrutura é validada;
+2. Os parâmetros criptográficos são verificados;
+3. A assinatura digital do criptograma codificado é verificada;
+4. Caso a assinatura seja inválida, o processo é interrompido;
+5. A chave de sessão AES é recuperada utilizando RSA-OAEP;
+6. O IV e a mensagem cifrada são decodificados;
+7. A mensagem é decifrada utilizando AES-256-CBC;
+8. O padding PKCS7 é removido;
+9. O texto original é salvo no arquivo informado.
 
-Caso seja válida:
+A verificação da assinatura ocorre antes da decifragem, conforme o modelo Encrypt-then-Sign.
 
-1. A chave AES é recuperada através do RSA-OAEP;
-2. O IV é recuperado;
-3. A mensagem cifrada é decodificada;
-4. A mensagem é decifrada com AES-256-CBC;
-5. O padding PKCS7 é removido;
-6. O texto original é salvo no arquivo de saída.
+## 10. Funcionamento criptográfico
 
-10. FUNCIONAMENTO CRIPTOGRÁFICO
+**Criação do envelope:**
 
-O fluxo de criação do envelope é:
-
-Mensagem
-→ AES-256-CBC
-→ Mensagem cifrada
-→ Base64 ou Hex
-→ Assinatura RSA
+```text
+Mensagem original
+      ↓
+AES-256-CBC + PKCS7
+      ↓
+Mensagem cifrada
+      ↓
+Codificação Base64 ou Hex
+      ↓
+Assinatura RSA PKCS#1 v1.5
+```
 
 Em paralelo:
 
-Chave AES
-→ Base64 ou Hex
-→ RSA-OAEP
-→ Chave de sessão protegida
+```text
+Chave AES aleatória
+      ↓
+Codificação Base64 ou Hex
+      ↓
+RSA-OAEP
+      ↓
+Chave de sessão protegida
+```
 
-Os dados são então reunidos em um arquivo JSON.
+Os dados e seus parâmetros são reunidos em um único envelope JSON.
 
-Na abertura:
+**Abertura do envelope:**
 
+```text
 Envelope JSON
-→ Verificação da assinatura
-→ Recuperação da chave AES
-→ Decifragem AES
-→ Mensagem original
+      ↓
+Validação da estrutura
+      ↓
+Verificação da assinatura
+      ↓
+Recuperação da chave AES
+      ↓
+Decifragem AES-256-CBC
+      ↓
+Remoção do padding
+      ↓
+Mensagem original
+```
 
-11. TESTES AUTOMATIZADOS
+## 11. Testes automatizados
 
-Os testes estão localizados na pasta testes/.
+Os testes automatizados estão localizados na pasta `testes/`.
 
-Para executá-los:
+Para executá-los, utilize o comando abaixo na raiz do projeto:
 
+```powershell
 python -m pytest -v
+```
 
-Os testes verificam:
+A suíte contempla testes de:
 
-- Codificação e decodificação Base64;
-- Codificação e decodificação Hex;
+- Codificação e decodificação Base64 e Hex;
 - Cifragem e decifragem AES;
-- Cifragem e decifragem RSA-OAEP;
-- Assinatura RSA válida;
-- Detecção de assinatura inválida;
-- Fluxo completo de criação e abertura do envelope.
+- Operações RSA-OAEP;
+- Geração e verificação de assinaturas RSA;
+- Identificação de assinaturas inválidas;
+- Integração entre criação e abertura do envelope.
 
-12. TESTES MANUAIS REALIZADOS
+A execução mais recente dos testes automatizados foi concluída sem falhas.
 
-Também foram realizados testes manuais para verificar:
+## 12. Validação e tratamento de erros
 
-- Criação e abertura correta do envelope;
-- Recuperação correta da mensagem original;
-- Detecção de alteração na mensagem cifrada;
-- Falha ao utilizar chave pública incorreta para verificar a assinatura;
-- Falha ao utilizar chave privada incorreta para recuperar a chave de sessão.
+A aplicação realiza verificações para identificar inconsistências durante a utilização.
 
-13. INTEROPERABILIDADE COM CYBERCHEF
+São tratados ou identificados casos como:
 
-A implementação foi testada com o CyberChef para validar a interoperabilidade do protocolo.
+- Arquivos de entrada inexistentes;
+- Arquivos JSON malformados;
+- Ausência de campos obrigatórios;
+- Estruturas JSON com tipos incompatíveis;
+- Algoritmos criptográficos inválidos;
+- Hashes diferentes dos permitidos;
+- Codificações diferentes de Base64 e Hex;
+- Assinaturas digitais inválidas;
+- Problemas de permissões de arquivos;
+- Problemas de codificação textual;
+- Falhas em operações criptográficas.
 
-Foram verificadas as seguintes etapas:
+O arquivo `envelope/validacao.py` concentra as validações dos parâmetros e da estrutura do envelope.
 
-- Verificação da assinatura RSA;
-- Recuperação da chave de sessão com RSA-OAEP;
-- Decifragem da mensagem com AES-256-CBC;
-- Uso de Base64;
-- Uso de SHA-256;
-- Compatibilidade da assinatura RSASSA-PKCS1-v1_5.
+O arquivo `main.py` realiza o tratamento das exceções, apresentando mensagens de erro e permitindo que o usuário continue utilizando o menu principal.
 
-O objetivo é permitir que os dados gerados pelo programa possam ser processados por outra implementação compatível com o mesmo protocolo.
+## 13. Testes manuais
 
-14. OBSERVAÇÕES
+Os testes manuais incluem operações de criação e abertura de envelopes utilizando os pares de chaves RSA.
 
-O programa utiliza:
+Também foram realizados testes envolvendo:
+
+- Recuperação da mensagem original;
+- Alteração intencional da mensagem cifrada;
+- Identificação de assinatura inválida;
+- Utilização de chaves incompatíveis;
+- Validação de parâmetros incorretos.
+
+Os testes auxiliam na verificação do funcionamento do protocolo e de seus mecanismos de proteção.
+
+## 14. Interoperabilidade com CyberChef
+
+A implementação segue os parâmetros criptográficos estabelecidos no enunciado para possibilitar interoperabilidade com ferramentas externas, incluindo o CyberChef.
+
+Os principais padrões utilizados são:
 
 - AES-256-CBC;
 - PKCS7;
@@ -278,11 +353,16 @@ O programa utiliza:
 - Base64 ou Hex;
 - Chaves RSA em formato PEM.
 
-O sistema também possui tratamento de erros para impedir encerramentos inesperados em situações como:
+Para verificar a interoperabilidade, devem ser utilizadas configurações equivalentes em ambas as ferramentas.
 
-- Arquivo inexistente;
-- Hash inválido;
-- Codificação inválida;
-- Assinatura inválida;
-- Chave incorreta;
-- Estrutura JSON incompatível.
+A verificação completa exige confirmar a compatibilidade das operações de assinatura, recuperação da chave de sessão e decifragem da mensagem entre as implementações.
+
+## 15. Observações finais
+
+O projeto utiliza o modelo Encrypt-then-Sign para garantir a confidencialidade da mensagem e permitir a verificação de sua integridade e autenticidade por meio de assinatura digital.
+
+As chaves privadas devem permanecer protegidas e não devem ser compartilhadas em aplicações reais.
+
+O sistema foi desenvolvido com uma arquitetura modular, separando os algoritmos criptográficos, as operações de envelope, a validação dos parâmetros e os testes automatizados.
+
+Essa organização facilita a manutenção, a verificação e a evolução da implementação.
