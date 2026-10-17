@@ -6,6 +6,8 @@ from crypto.rsa import carregar_chave_privada, carregar_chave_publica
 from crypto.rsa import decifrar_chave_sessao
 from crypto.assinatura import verificar_assinatura
 
+from envelope.validacao import validar_estrutura_envelope
+
 
 def abrir_envelope(
     caminho_envelope: str,
@@ -16,6 +18,8 @@ def abrir_envelope(
 
     with open(caminho_envelope, "r", encoding="utf-8") as arquivo:
         dados = json.load(arquivo)
+
+    validar_estrutura_envelope(dados)
 
     parametros = dados["parametros"]
     envelope = dados["envelope"]

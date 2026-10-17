@@ -1,3 +1,6 @@
+
+import json
+
 from envelope.criar import criar_envelope
 from envelope.abrir import abrir_envelope
 from envelope.validacao import (
@@ -123,7 +126,16 @@ def main():
                 print("\nOpção inválida.")
 
         except FileNotFoundError as erro:
-            print(f"\nErro de arquivo: {erro}")
+            print(f"\nErro: arquivo não encontrado. {erro}")
+
+        except json.JSONDecodeError as erro:
+            print(f"\nErro: o arquivo JSON está malformado. {erro}")
+
+        except PermissionError as erro:
+            print(f"\nErro: permissão negada para acessar o arquivo. {erro}")
+
+        except UnicodeDecodeError as erro:
+            print(f"\nErro: problema na codificação de texto do arquivo. {erro}")
 
         except ValueError as erro:
             print(f"\nErro: {erro}")

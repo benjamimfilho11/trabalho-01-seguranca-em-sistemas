@@ -1,3 +1,4 @@
+
 import os
 
 
@@ -23,6 +24,11 @@ def validar_hash(nome_hash: str):
 
 
 def validar_estrutura_envelope(dados: dict):
+    if not isinstance(dados, dict):
+        raise ValueError(
+            "Estrutura inválida: o JSON deve conter um objeto."
+        )
+
     if "parametros" not in dados:
         raise ValueError(
             "Campo 'parametros' ausente no envelope."
@@ -35,6 +41,16 @@ def validar_estrutura_envelope(dados: dict):
 
     parametros = dados["parametros"]
     envelope = dados["envelope"]
+
+    if not isinstance(parametros, dict):
+        raise ValueError(
+            "O campo 'parametros' deve ser um objeto JSON."
+        )
+
+    if not isinstance(envelope, dict):
+        raise ValueError(
+            "O campo 'envelope' deve ser um objeto JSON."
+        )
 
     campos_parametros = [
         "algoritmo_simetrico",
@@ -59,10 +75,20 @@ def validar_estrutura_envelope(dados: dict):
                 f"Campo ausente em parametros: {campo}"
             )
 
+        if not isinstance(parametros[campo], str):
+            raise ValueError(
+                f"O campo '{campo}' deve ser uma string."
+            )
+
     for campo in campos_envelope:
         if campo not in envelope:
             raise ValueError(
                 f"Campo ausente no envelope: {campo}"
+            )
+
+        if not isinstance(envelope[campo], str):
+            raise ValueError(
+                f"O campo '{campo}' deve ser uma string."
             )
 
     if parametros["algoritmo_simetrico"] != "AES-256-CBC":
