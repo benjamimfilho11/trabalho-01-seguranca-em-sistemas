@@ -1,0 +1,17 @@
+{
+    "parametros": {
+        "algoritmo_simetrico": "AES-256-CBC",
+        "padding_simetrico": "PKCS7",
+        "algoritmo_chave": "RSA-OAEP",
+        "hash_oaep": "SHA-512",
+        "algoritmo_assinatura": "RSA",
+        "hash_assinatura": "SHA-512",
+        "codificacao": "Hex"
+    },
+    "envelope": {
+        "iv": "44fce66cab19621f0e1a27a450a6afd7",
+        "chave_sessao": "6c82ecdfbb85c025894e203db53e3df512e1a7282e1ef614f79a027da05051ef523ae1d50bf267075eb50fa0da9683ed8cbace58ccd87713308b2273b0aa5aee88e4a6bfb4a48cb75d18114e939f5a0055ec578116b54c4dbad00e870ec57930f32841659cacd7a22006db9d13ac88c5b2bde2c0f251491973bfef7f71b0dbaf86efae7d2f18126ac1a36d2268c1d126778397e0f055fbdedabc74daed6f56911ed2134bb0d4bedef33d85460454a041ee1c8a2c445f52ec7b697b2e5e2a0446e9a541acdc2a3e61f1b167c1c002aaf21674dd9759bfe3de4744c7da34e2477184fb94a327c593fa037a2cc145d292baba47bf590b60976df0fbc180d23307d8",
+        "mensagem_cifrada": "b3ed92df3cef6d8021c8ef4ca1ddfbe71030c08f394e804482347e8f42d865eaabd8d9dc88fffc58e9c4490e0008144eb2932af7b093b5fc7f3cf4e1360e7851",
+        "assinatura": "0a2afa42919ff8ee29620ffbff1962f210c8416c5fc09c9f9dd9f48f5b7136462a5a9773ab37319a1b8b2c07e02ef29f7a5a54be01eb30d55256c746c72d531fb64de15461cae75c50aa5ab5c81812bc68d71cca476ccf393a4568a4440275573c95e759302dcb831c7ddde749ea4a056e70905e42c24feccd0385f6c11a548e279b3e7f89af15026d7448d5d6061d3083c530b5c2089063645b9fdf38e46416b303c6ed2c2d782a9ee39d8d34d5923ef80f9dd14d16deeac7bb09da0eff6734f01eca927363aff79bb9749db76bd5113eb4074ba230e0b9523349bdfd5474a8efb274cbcea2fe33b14c4ae573261b702c7cbb598cedd9d0976fc24fde727c07"
+    }
+}
